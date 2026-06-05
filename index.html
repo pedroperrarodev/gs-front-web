@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIAP-SAT 1 — Mission Control</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="header-brand">
+                <span class="brand-prefix">//</span>
+                <strong>FIAP-SAT 1</strong>
+                <span class="brand-sub">Mission Control</span>
+            </div>
+            <div class="header-right">
+                <nav>
+                    <a href="index.html" class="active">Visão Geral</a>
+                    <a href="dashboard.html">Telemetria</a>
+                </nav>
+                <div class="mission-status">
+                    <span class="dot dot-ok" id="status-dot"></span>
+                    <span id="status-text">OPERACIONAL</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="mission-hero">
+            <div class="mission-info">
+                <h1>FIAP-SAT 1</h1>
+                <p class="mission-tagline">Nanossatélite de Monitoramento Ambiental &mdash; Órbita LEO 550 km</p>
+                <dl class="mission-meta">
+                    <dt>Lançamento</dt>
+                    <dd>15 mar 2026</dd>
+                    <dt>Órbita</dt>
+                    <dd>LEO · 550 km · 97.4°</dd>
+                    <dt>Período orbital</dt>
+                    <dd>95.4 min</dd>
+                    <dt>Último contato</dt>
+                    <dd id="last-contact">2026-06-04 · 14:32 UTC</dd>
+                    <dt>Próximo passe</dt>
+                    <dd>em <span id="next-pass-countdown" class="countdown-val">--:--</span></dd>
+                    <dt>Status geral</dt>
+                    <dd>Operacional com 1 alerta ativo</dd>
+                </dl>
+            </div>
+            <div class="globe-wrap" aria-hidden="true">
+                <div class="globe-orbit"></div>
+                <div class="globe-ring"></div>
+                <div class="globe-earth"></div>
+                <div class="globe-sat"></div>
+            </div>
+        </section>
+
+        <section class="telemetry-summary">
+            <h2>Leituras Atuais</h2>
+            <div class="cards-grid">
+
+                <article class="card">
+                    <div class="card-head">
+                        <span class="card-label">Temperatura Interna</span>
+                        <span class="dot dot-ok" id="dot-temp"></span>
+                    </div>
+                    <p class="card-value"><span id="val-temp">+23.4</span><span class="unit">°C</span></p>
+                    <p class="card-range">Nominal: &minus;10°C a +40°C</p>
+                </article>
+
+                <article class="card">
+                    <div class="card-head">
+                        <span class="card-label">Tensão da Bateria</span>
+                        <span class="dot dot-ok" id="dot-volt"></span>
+                    </div>
+                    <p class="card-value"><span id="val-volt">7.82</span><span class="unit">V</span></p>
+                    <p class="card-range">Nominal: 7.2V a 8.4V</p>
+                </article>
+
+                <article class="card">
+                    <div class="card-head">
+                        <span class="card-label">Pressão Interna</span>
+                        <span class="dot dot-warn" id="dot-pres"></span>
+                    </div>
+                    <p class="card-value"><span id="val-pres">98.1</span><span class="unit">kPa</span></p>
+                    <p class="card-range">Nominal: 99.0 a 101.3 kPa</p>
+                </article>
+
+                <article class="card">
+                    <div class="card-head">
+                        <span class="card-label">Força do Sinal</span>
+                        <span class="dot dot-ok" id="dot-sig"></span>
+                    </div>
+                    <p class="card-value"><span id="val-sig">-72</span><span class="unit">dBm</span></p>
+                    <p class="card-range">Nominal: acima de &minus;85 dBm</p>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="recent-alerts">
+            <h2>Alertas Recentes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hora (UTC)</th>
+                        <th>Subsistema</th>
+                        <th>Evento</th>
+                        <th>Severidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="mono">14:31:07</td>
+                        <td>Pressão</td>
+                        <td>Leitura abaixo do limite nominal</td>
+                        <td><span class="badge badge-warn">Atenção</span></td>
+                    </tr>
+                    <tr>
+                        <td class="mono">12:18:43</td>
+                        <td>Energia</td>
+                        <td>Painel solar B com eficiência reduzida</td>
+                        <td><span class="badge badge-warn">Atenção</span></td>
+                    </tr>
+                    <tr>
+                        <td class="mono">08:04:11</td>
+                        <td>Térmico</td>
+                        <td>Sistema normalizado após eclipse</td>
+                        <td><span class="badge badge-ok">OK</span></td>
+                    </tr>
+                    <tr>
+                        <td class="mono">06:47:30</td>
+                        <td>Comunicações</td>
+                        <td>Passe de telemetria concluído com sucesso</td>
+                        <td><span class="badge badge-ok">OK</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>FIAP-SAT 1 &mdash; Global Solution 2026 &mdash; Engenharia de Software 1º Ano</p>
+        <p class="mono">2026-06-04T14:32:00Z</p>
+    </footer>
+
+    <script src="js/telemetry.js"></script>
+</body>
+</html>
