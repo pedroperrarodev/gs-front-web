@@ -3,232 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telemetria — FIAP-SAT 1</title>
+    <title>FIAP-SAT 1 | Telemetria</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2314202b'/%3E%3Cpath d='M8 16h16M16 8v16' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+    <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
     <header class="site-header">
         <div class="header-inner">
             <div class="header-brand">
-                <span class="brand-prefix">//</span>
-                <strong>FIAP-SAT 1</strong>
-                <span class="brand-sub">Mission Control</span>
+                <span class="brand-kicker">FIAP-SAT 1</span>
+                <strong>Centro de Monitoramento</strong>
             </div>
-            <div class="header-right">
-                <nav>
-                    <a href="index.html">Visão Geral</a>
-                    <a href="dashboard.html" class="active">Telemetria</a>
-                </nav>
-                <div class="mission-status">
-                    <span class="dot dot-warn" id="status-dot"></span>
-                    <span id="status-text" style="color: var(--yellow)">1 ALERTA ATIVO</span>
-                </div>
-            </div>
+            <nav class="site-nav" aria-label="Navegação principal">
+                <a href="index.html">Visão geral</a>
+                <a href="dashboard.html" class="active">Telemetria</a>
+            </nav>
         </div>
     </header>
 
-    <main>
-
-        <div class="dash-header">
+    <main class="page-shell" id="conteudo-principal">
+        <section class="dashboard-hero" aria-labelledby="titulo-telemetria">
             <div>
-                <h1>Painel de Telemetria</h1>
-                <p class="mono muted" id="dash-timestamp">Última atualização: 2026-06-04 · 14:32:00 UTC</p>
+                <p class="section-kicker">Painel operacional</p>
+                <h1 id="titulo-telemetria">Telemetria detalhada</h1>
+                <p class="hero-text" id="dash-timestamp">Última atualização: 2026-06-04 14:32:00 UTC</p>
             </div>
-            <div class="action-bar">
-                <span class="next-pass-box">Próximo passe: <span id="next-pass-countdown" class="countdown-val">--:--</span></span>
-                <button class="btn btn-danger" id="btn-storm">Simular Tempestade Solar</button>
-                <button class="btn btn-ghost"  id="btn-reset">Resetar Sistema</button>
+
+            <div class="hero-actions">
+                <div class="hero-status-inline">
+                    <span class="label-inline">Próximo passe</span>
+                    <strong id="next-pass-countdown" class="countdown-val">--:--</strong>
+                </div>
+                <div class="hero-status-inline">
+                    <span class="label-inline">Status</span>
+                    <div class="mission-status" role="status" aria-live="polite">
+                        <span class="dot dot-warn" id="status-dot"></span>
+                        <span id="status-text">1 ALERTA ATIVO</span>
+                    </div>
+                </div>
+                <div class="button-row">
+                    <button class="btn btn-primary" id="btn-storm">Simular tempestade solar</button>
+                    <button class="btn btn-secondary" id="btn-reset">Resetar sistema</button>
+                </div>
             </div>
-        </div>
-
-        <div class="subsystems-grid">
-
-            <section class="subsystem">
-                <h2>Subsistema Térmico</h2>
-                <div class="readings">
-                    <article class="reading">
-                        <span class="reading-label">Temperatura Interna</span>
-                        <span class="reading-value" id="rv-temp-int">+23.4 °C</span>
-                        <span class="dot dot-ok" id="rd-temp-int"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Temperatura Externa</span>
-                        <span class="reading-value" id="rv-temp-ext">&minus;48.7 °C</span>
-                        <span class="dot dot-ok" id="rd-temp-ext"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Aquecedor</span>
-                        <span class="reading-value" id="rv-heater">INATIVO</span>
-                        <span class="dot dot-ok" id="rd-heater"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Dissipador de Calor</span>
-                        <span class="reading-value" id="rv-dissipator">ATIVO</span>
-                        <span class="dot dot-ok" id="rd-dissipator"></span>
-                    </article>
-                </div>
-            </section>
-
-            <section class="subsystem">
-                <h2>Subsistema de Energia</h2>
-                <div class="readings">
-                    <article class="reading">
-                        <span class="reading-label">Tensão da Bateria</span>
-                        <span class="reading-value" id="rv-voltage">7.82 V</span>
-                        <span class="dot dot-ok" id="rd-voltage"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Nível de Carga</span>
-                        <span class="reading-value" id="rv-charge">84%</span>
-                        <span class="dot dot-ok" id="rd-charge"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Painel Solar A</span>
-                        <span class="reading-value" id="rv-solar-a">2.14 W</span>
-                        <span class="dot dot-ok" id="rd-solar-a"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Painel Solar B</span>
-                        <span class="reading-value" id="rv-solar-b">1.67 W</span>
-                        <span class="dot dot-warn" id="rd-solar-b"></span>
-                    </article>
-                </div>
-            </section>
-
-            <section class="subsystem">
-                <h2>Pressão e Estrutura</h2>
-                <div class="readings">
-                    <article class="reading">
-                        <span class="reading-label">Pressão Interna</span>
-                        <span class="reading-value" id="rv-pressure">98.1 kPa</span>
-                        <span class="dot dot-warn" id="rd-pressure"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Vibração</span>
-                        <span class="reading-value" id="rv-vibration">0.020 g</span>
-                        <span class="dot dot-ok" id="rd-vibration"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Integridade Estrutural</span>
-                        <span class="reading-value" id="rv-integrity">100%</span>
-                        <span class="dot dot-ok" id="rd-integrity"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Microimpactos</span>
-                        <span class="reading-value" id="rv-microimpacts">0</span>
-                        <span class="dot dot-ok" id="rd-microimpacts"></span>
-                    </article>
-                </div>
-            </section>
-
-            <section class="subsystem">
-                <h2>Comunicações</h2>
-                <div class="readings">
-                    <article class="reading">
-                        <span class="reading-label">Força do Sinal</span>
-                        <span class="reading-value" id="rv-signal">&minus;72 dBm</span>
-                        <span class="dot dot-ok" id="rd-signal"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Taxa de Dados</span>
-                        <span class="reading-value" id="rv-datarate">9.6 kbps</span>
-                        <span class="dot dot-ok" id="rd-datarate"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Último Contato</span>
-                        <span class="reading-value" id="rv-last-contact">14:32:00 UTC</span>
-                        <span class="dot dot-ok" id="rd-last-contact"></span>
-                    </article>
-                    <article class="reading">
-                        <span class="reading-label">Próximo Passe</span>
-                        <span class="reading-value" id="rv-next-pass">16:07 UTC</span>
-                        <span class="dot dot-ok" id="rd-next-pass"></span>
-                    </article>
-                </div>
-            </section>
-
-        </div>
-
-        <section class="tlog">
-            <h2 class="dash-section-title">Histórico de Leituras</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Hora (UTC)</th>
-                        <th>Temp. Int.</th>
-                        <th>Tensão</th>
-                        <th>Pressão</th>
-                        <th>Sinal</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="tlog-tbody">
-                    <tr>
-                        <td class="mono">14:32:00 UTC</td>
-                        <td class="mono">+23.4 °C</td>
-                        <td class="mono">7.82 V</td>
-                        <td class="mono">98.1 kPa</td>
-                        <td class="mono">&minus;72 dBm</td>
-                        <td><span class="badge badge-warn">Atenção</span></td>
-                    </tr>
-                    <tr>
-                        <td class="mono">13:56:30 UTC</td>
-                        <td class="mono">+22.9 °C</td>
-                        <td class="mono">7.84 V</td>
-                        <td class="mono">98.3 kPa</td>
-                        <td class="mono">&minus;74 dBm</td>
-                        <td><span class="badge badge-ok">OK</span></td>
-                    </tr>
-                    <tr>
-                        <td class="mono">13:21:15 UTC</td>
-                        <td class="mono">+21.1 °C</td>
-                        <td class="mono">7.79 V</td>
-                        <td class="mono">99.0 kPa</td>
-                        <td class="mono">&minus;69 dBm</td>
-                        <td><span class="badge badge-ok">OK</span></td>
-                    </tr>
-                    <tr>
-                        <td class="mono">12:45:00 UTC</td>
-                        <td class="mono">+24.7 °C</td>
-                        <td class="mono">7.91 V</td>
-                        <td class="mono">99.2 kPa</td>
-                        <td class="mono">&minus;68 dBm</td>
-                        <td><span class="badge badge-ok">OK</span></td>
-                    </tr>
-                    <tr>
-                        <td class="mono">12:18:43 UTC</td>
-                        <td class="mono">+25.1 °C</td>
-                        <td class="mono">7.88 V</td>
-                        <td class="mono">99.1 kPa</td>
-                        <td class="mono">&minus;70 dBm</td>
-                        <td><span class="badge badge-warn">Atenção</span></td>
-                    </tr>
-                    <tr>
-                        <td class="mono">08:04:11 UTC</td>
-                        <td class="mono">&minus;02.3 °C</td>
-                        <td class="mono">7.61 V</td>
-                        <td class="mono">99.4 kPa</td>
-                        <td class="mono">&minus;71 dBm</td>
-                        <td><span class="badge badge-ok">OK</span></td>
-                    </tr>
-                    <tr>
-                        <td class="mono">06:47:30 UTC</td>
-                        <td class="mono">&minus;05.8 °C</td>
-                        <td class="mono">7.55 V</td>
-                        <td class="mono">99.6 kPa</td>
-                        <td class="mono">&minus;66 dBm</td>
-                        <td><span class="badge badge-ok">OK</span></td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
 
+        <section class="content-section" aria-labelledby="titulo-subsistemas">
+            <div class="section-heading">
+                <div>
+                    <p class="section-kicker">Subsistemas</p>
+                    <h2 id="titulo-subsistemas">Leituras em tempo real</h2>
+                </div>
+            </div>
+
+            <div class="subsystems-grid">
+                <section class="subsystem">
+                    <h3>Subsistema térmico</h3>
+                    <div class="readings">
+                        <article class="reading">
+                            <span class="reading-label">Temperatura interna</span>
+                            <span class="reading-value" id="rv-temp-int">+23.4 °C</span>
+                            <span class="dot dot-ok" id="rd-temp-int"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Temperatura externa</span>
+                            <span class="reading-value" id="rv-temp-ext">-48.7 °C</span>
+                            <span class="dot dot-ok" id="rd-temp-ext"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Aquecedor</span>
+                            <span class="reading-value" id="rv-heater">INATIVO</span>
+                            <span class="dot dot-ok" id="rd-heater"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Dissipador de calor</span>
+                            <span class="reading-value" id="rv-dissipator">ATIVO</span>
+                            <span class="dot dot-ok" id="rd-dissipator"></span>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="subsystem">
+                    <h3>Subsistema de energia</h3>
+                    <div class="readings">
+                        <article class="reading">
+                            <span class="reading-label">Tensão da bateria</span>
+                            <span class="reading-value" id="rv-voltage">7.82 V</span>
+                            <span class="dot dot-ok" id="rd-voltage"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Nível de carga</span>
+                            <span class="reading-value" id="rv-charge">84%</span>
+                            <span class="dot dot-ok" id="rd-charge"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Painel solar A</span>
+                            <span class="reading-value" id="rv-solar-a">2.14 W</span>
+                            <span class="dot dot-ok" id="rd-solar-a"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Painel solar B</span>
+                            <span class="reading-value" id="rv-solar-b">1.67 W</span>
+                            <span class="dot dot-warn" id="rd-solar-b"></span>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="subsystem">
+                    <h3>Pressão e estrutura</h3>
+                    <div class="readings">
+                        <article class="reading">
+                            <span class="reading-label">Pressão interna</span>
+                            <span class="reading-value" id="rv-pressure">98.1 kPa</span>
+                            <span class="dot dot-warn" id="rd-pressure"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Vibração</span>
+                            <span class="reading-value" id="rv-vibration">0.020 g</span>
+                            <span class="dot dot-ok" id="rd-vibration"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Integridade estrutural</span>
+                            <span class="reading-value" id="rv-integrity">100%</span>
+                            <span class="dot dot-ok" id="rd-integrity"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Microimpactos</span>
+                            <span class="reading-value" id="rv-microimpacts">0</span>
+                            <span class="dot dot-ok" id="rd-microimpacts"></span>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="subsystem">
+                    <h3>Comunicações</h3>
+                    <div class="readings">
+                        <article class="reading">
+                            <span class="reading-label">Força do sinal</span>
+                            <span class="reading-value" id="rv-signal">-72 dBm</span>
+                            <span class="dot dot-ok" id="rd-signal"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Taxa de dados</span>
+                            <span class="reading-value" id="rv-datarate">9.6 kbps</span>
+                            <span class="dot dot-ok" id="rd-datarate"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Último contato</span>
+                            <span class="reading-value" id="rv-last-contact">14:32:00 UTC</span>
+                            <span class="dot dot-ok" id="rd-last-contact"></span>
+                        </article>
+                        <article class="reading">
+                            <span class="reading-label">Próximo passe</span>
+                            <span class="reading-value" id="rv-next-pass">16:07 UTC</span>
+                            <span class="dot dot-ok" id="rd-next-pass"></span>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="content-section" aria-labelledby="titulo-historico">
+            <div class="section-heading">
+                <div>
+                    <p class="section-kicker">Histórico</p>
+                    <h2 id="titulo-historico">Últimas leituras</h2>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <caption class="sr-only">Histórico das leituras recentes de telemetria do FIAP-SAT 1</caption>
+                    <thead>
+                        <tr>
+                            <th>Hora (UTC)</th>
+                            <th>Temp. Int.</th>
+                            <th>Tensão</th>
+                            <th>Pressão</th>
+                            <th>Sinal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tlog-tbody">
+                        <tr>
+                            <td class="mono"><time datetime="2026-06-04T14:32:00Z">14:32:00 UTC</time></td>
+                            <td class="mono">+23.4 °C</td>
+                            <td class="mono">7.82 V</td>
+                            <td class="mono">98.1 kPa</td>
+                            <td class="mono">-72 dBm</td>
+                            <td><span class="badge badge-warn">Atenção</span></td>
+                        </tr>
+                        <tr>
+                            <td class="mono"><time datetime="2026-06-04T13:56:30Z">13:56:30 UTC</time></td>
+                            <td class="mono">+22.9 °C</td>
+                            <td class="mono">7.84 V</td>
+                            <td class="mono">98.3 kPa</td>
+                            <td class="mono">-74 dBm</td>
+                            <td><span class="badge badge-ok">OK</span></td>
+                        </tr>
+                        <tr>
+                            <td class="mono"><time datetime="2026-06-04T13:21:15Z">13:21:15 UTC</time></td>
+                            <td class="mono">+21.1 °C</td>
+                            <td class="mono">7.79 V</td>
+                            <td class="mono">99.0 kPa</td>
+                            <td class="mono">-69 dBm</td>
+                            <td><span class="badge badge-ok">OK</span></td>
+                        </tr>
+                        <tr>
+                            <td class="mono"><time datetime="2026-06-04T12:45:00Z">12:45:00 UTC</time></td>
+                            <td class="mono">+24.7 °C</td>
+                            <td class="mono">7.91 V</td>
+                            <td class="mono">99.2 kPa</td>
+                            <td class="mono">-68 dBm</td>
+                            <td><span class="badge badge-ok">OK</span></td>
+                        </tr>
+                        <tr>
+                            <td class="mono"><time datetime="2026-06-04T12:18:43Z">12:18:43 UTC</time></td>
+                            <td class="mono">+25.1 °C</td>
+                            <td class="mono">7.88 V</td>
+                            <td class="mono">99.1 kPa</td>
+                            <td class="mono">-70 dBm</td>
+                            <td><span class="badge badge-warn">Atenção</span></td>
+                        </tr>
+                        <tr>
+                            <td class="mono"><time datetime="2026-06-04T08:04:11Z">08:04:11 UTC</time></td>
+                            <td class="mono">-02.3 °C</td>
+                            <td class="mono">7.61 V</td>
+                            <td class="mono">99.4 kPa</td>
+                            <td class="mono">-71 dBm</td>
+                            <td><span class="badge badge-ok">OK</span></td>
+                        </tr>
+                        <tr>
+                            <td class="mono"><time datetime="2026-06-04T06:47:30Z">06:47:30 UTC</time></td>
+                            <td class="mono">-05.8 °C</td>
+                            <td class="mono">7.55 V</td>
+                            <td class="mono">99.6 kPa</td>
+                            <td class="mono">-66 dBm</td>
+                            <td><span class="badge badge-ok">OK</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">
-        <p>FIAP-SAT 1 &mdash; Global Solution 2026 &mdash; Engenharia de Software 1º Ano</p>
-        <p class="mono">2026-06-04T14:32:00Z</p>
+        <p>FIAP-SAT 1 · Global Solution 2026</p>
+        <p class="mono"><time datetime="2026-06-04T14:32:00Z">2026-06-04T14:32:00Z</time></p>
     </footer>
 
     <script src="js/telemetry.js"></script>

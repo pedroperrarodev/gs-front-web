@@ -1,59 +1,130 @@
-# FIAP-SAT 1 — Mission Control Interface
+# FIAP-SAT 1 | Interface de Monitoramento Espacial
 
-Projeto desenvolvido para a Global Solution 2026 da FIAP, disciplina Front-End Design. A interface simula um painel de controle para monitoramento de telemetria do nanossatélite FIAP-SAT 1, em órbita baixa (LEO) a 550 km de altitude.
+Projeto acadêmico de interface web estática para a Global Solution FIAP. A solução representa o painel de monitoramento do `FIAP-SAT 1`, um nanossatélite fictício de observação ambiental em órbita baixa.
 
-O problema que a interface resolve: engenheiros de missão precisam acompanhar os dados de saúde do satélite (temperatura, energia, pressão, comunicações) de forma rápida e clara, especialmente em situações de alerta onde cada segundo importa.
+O problema escolhido foi a visualização rápida do estado operacional de um sistema espacial. Em um contexto de missão crítica, operadores precisam identificar alertas, checar subsistemas e acompanhar leituras de telemetria sem ruído visual ou excesso de elementos decorativos.
 
-## Páginas
+## Objetivo da interface
 
-- **index.html** — visão geral da missão: dados básicos do satélite, leituras principais em cards e tabela dos últimos alertas
-- **dashboard.html** — painel completo de telemetria dividido por subsistema (térmico, energia, pressão/estrutura, comunicações), com tabela histórica de leituras
+A interface foi desenhada para apoiar o acompanhamento de:
 
-## Estrutura de arquivos
+- saúde térmica do satélite
+- energia e carga da bateria
+- pressão interna e integridade estrutural
+- qualidade de comunicação com a estação em solo
+- alertas recentes e histórico resumido de leituras
 
-```
-front-web/
+O público principal da interface são operadores de missão, analistas de telemetria e equipes técnicas que precisam de uma leitura objetiva do sistema.
+
+## Estrutura do projeto
+
+```text
+gs-front-web/
 ├── index.html
 ├── dashboard.html
 ├── css/
 │   └── style.css
+├── js/
+│   └── telemetry.js
 └── README.md
 ```
 
-Um único arquivo CSS compartilhado entre as duas páginas.
+## Páginas
 
-## Escolhas visuais
+- `index.html`: visão geral da missão, status atual, leituras principais e alertas recentes.
+- `dashboard.html`: painel completo com telemetria por subsistema e histórico de leituras.
 
-**Cores:** fundo escuro (`#0a0e1a`) porque centros de controle de missão real usam ambientes de baixa luminosidade para reduzir fadiga visual durante turnos longos. O ciano (`#00e5ff`) vem da estética de displays aeroespaciais e militares. As cores de status (verde, amarelo, vermelho) seguem o padrão universal de sistemas operacionais: ok, atenção e crítico.
+## Justificativas de UI
 
-**Tipografia:** dados numéricos usam fonte monospace (Space Mono / Courier New) porque cada caractere tem a mesma largura, evitando "saltos" visuais quando os valores mudam. O restante da interface usa sans-serif (Inter / system-ui) para manter legibilidade em textos corridos.
+### Problema espacial resolvido
 
-**Layout:** CSS Grid no painel de telemetria para organizar os 4 subsistemas lado a lado. Flexbox no cabeçalho, nos cards e nos elementos de navegação.
+O projeto simula uma interface de monitoramento para um satélite educacional que coleta dados orbitais e precisa ser acompanhado a partir do solo. A proposta é mostrar como uma central de monitoramento pode organizar sinais vitais do equipamento de forma clara, rápida e confiável.
 
-**Semântica:** uso de `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>` e `<dl>` conforme as recomendações do HTML5 para acessibilidade e estrutura de conteúdo.
+### Cores
 
-## Como rodar
+Foi adotada uma paleta sóbria com cinzas frios, branco e azul técnico:
 
-Sem dependências externas. Basta abrir o `index.html` diretamente no browser.
+- `#f3f5f7` e `#ffffff` para fundo e superfícies, permitindo contraste alto e leitura limpa.
+- `#1f5f8b` como cor de destaque funcional, associada a tecnologia, precisão e contexto aeroespacial.
+- verde, amarelo e vermelho para estados de `ok`, `atenção` e `crítico`, respeitando convenções operacionais.
 
-## Manual de Interatividade (Web Development)
+A intenção foi transmitir seriedade e tecnologia espacial sem recorrer a efeitos exagerados ou estética genérica de ficção científica.
 
-### Em ambas as páginas
+### Tipografia
 
-- **Leituras ao vivo:** valores de temperatura, tensão, pressão e sinal atualizam automaticamente a cada 3 segundos via `setInterval`.
-- **Status dinâmico:** indicador no cabeçalho (`OPERACIONAL` / `1 ALERTA ATIVO` / `CRÍTICO`) muda cor e texto conforme os valores cruzam os limites nominais. Dots verde/amarelo/vermelho refletem o estado de cada sensor individualmente.
-- **Contador de próximo passe:** contagem regressiva em tempo real até a janela de comunicação das 16:07 UTC, atualizada via `setInterval` a cada segundo.
+- fonte sans-serif padrão do sistema para títulos, navegação e textos
+- fonte monoespaçada padrão do sistema para horários, leituras numéricas e indicadores técnicos
 
-### Em `dashboard.html`
+Essa decisão deixa a interface mais neutra, familiar e direta, reduzindo a sensação de excesso visual e mantendo boa leitura para os dados de telemetria.
 
-- **Botão "Simular Tempestade Solar":** aciona degradação progressiva de pressão, sinal e painel solar B a cada tick. Após alguns ciclos, se qualquer parâmetro atingir nível crítico, um `window.alert` dispara com protocolo de emergência. O botão fica desabilitado durante o evento.
-- **Botão "Resetar Sistema":** restaura todos os parâmetros para o estado nominal via `resetSystem()`, reabilita o botão de simulação e re-renderiza o painel imediatamente.
-- **Tabela de histórico:** nova linha é inserida no topo da tabela a cada tick de telemetria (3s) com timestamp real, valores atuais e badge de status. Máximo de 15 registros mantidos via `deleteRow`.
+### Estrutura e semântica HTML
 
-### Sequência recomendada para avaliação
+O projeto utiliza HTML5 semântico com:
 
-1. Abrir `dashboard.html`
-2. Observar valores oscilando a cada 3 segundos e contador de próximo passe
-3. Clicar em **"Simular Tempestade Solar"** — pressão e sinal começam a degradar, tabela registra cada leitura
-4. Aguardar ~10 ciclos (30s) até o `window.alert` de alerta crítico aparecer
-5. Clicar em **"Resetar Sistema"** — parâmetros voltam ao nominal, botão reabilita
+- `<header>` para a identidade e navegação principal
+- `<nav>` para a troca entre visão geral e telemetria
+- `<main>` para o conteúdo principal de cada página
+- `<section>` para agrupar blocos temáticos
+- `<article>` para cartões e linhas de leitura
+- `<aside>` para o resumo operacional da missão
+- `<footer>` para metadados finais
+- `<time>` para horários e timestamps
+- `<table>` com `<caption>`, `<thead>` e `<tbody>` para dados tabulares
+
+Também foram incluídos recursos básicos de acessibilidade:
+
+- link de pulo para o conteúdo principal
+- estados de foco visíveis para teclado
+- `aria-live` nos indicadores dinâmicos de status
+- hierarquia clara de títulos
+
+### Layout e CSS
+
+O CSS foi organizado em um único arquivo compartilhado entre as páginas, com:
+
+- variáveis CSS em `:root` para cores, tipografia e estados
+- grid para organização dos cards e subsistemas
+- espaçamento consistente e responsivo
+- componentes visuais reutilizáveis para botões, badges, cartões e tabelas
+- adaptação para telas menores com abordagem mobile-first
+
+O layout prioriza leitura rápida, agrupamento lógico dos dados e navegação direta. A proposta visual é simples, funcional e condizente com um painel de missão crítica.
+
+## Interatividade incluída
+
+Embora o foco da entrega seja a interface estática em HTML e CSS, o projeto inclui uma camada leve de JavaScript para simular uso real:
+
+- atualização periódica de telemetria
+- contagem regressiva para o próximo passe orbital
+- mudança automática de status operacional
+- simulação de evento de tempestade solar
+- atualização do histórico de leituras
+
+## Como executar localmente
+
+Na pasta do projeto, rode:
+
+```bash
+python3 -m http.server 4173
+```
+
+Depois abra:
+
+- `http://127.0.0.1:4173/index.html`
+- `http://127.0.0.1:4173/dashboard.html`
+
+## Entrega no GitHub
+
+Para a entrega final, o repositório deve conter:
+
+- `index.html`
+- `dashboard.html`
+- `css/style.css`
+- `README.md`
+
+É recomendável publicar no GitHub Pages para facilitar a avaliação visual.
+
+Links da entrega:
+
+- Repositório: `https://github.com/pedroperrarodev/gs-front-web`
+- GitHub Pages: `https://pedroperrarodev.github.io/gs-front-web/`
